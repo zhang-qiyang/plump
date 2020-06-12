@@ -14,6 +14,5 @@ public class result {
         enhancer.setSuperclass(Test.class);
         enhancer.setCallback(myProxy);
         Test test = (Test) enhancer.create();
-        String string = test.getString();
     }
 }
