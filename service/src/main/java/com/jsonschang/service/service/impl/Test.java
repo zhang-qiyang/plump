@@ -8,7 +8,6 @@ import java.lang.reflect.Proxy;
 /**
  * @author zhangqiyang
  * @date 2020/6/3 - 16:27
- * @description
  */
 public class Test {
     public static void main(String[] args) {
