@@ -12,7 +12,6 @@ import java.lang.reflect.Proxy;
  */
 public class Test {
     public static void main(String[] args) {
-
         TestproxyImpl testproxy = new TestproxyImpl();
         TestInvocationHandler testInvocationHandler = new TestInvocationHandler(testproxy);
         TestProxy testProxy = (TestProxy) Proxy.newProxyInstance(testproxy.getClass().getClassLoader(), testproxy.getClass().getInterfaces(), testInvocationHandler);
