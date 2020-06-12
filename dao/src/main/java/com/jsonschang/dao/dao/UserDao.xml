@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsonschang.dao.dao.UserDao">
+
+    <resultMap type="com.jsonschang.model.entity.User" id="UserMap">
+        <result property="uid" column="UID" jdbcType="VARCHAR"/>
+        <result property="userName" column="USER_NAME" jdbcType="VARCHAR"/>
+        <result property="age" column="AGE" jdbcType="VARCHAR"/>
+        <result property="phone" column="PHONE" jdbcType="VARCHAR"/>
+        <result property="address" column="ADDRESS" jdbcType="VARCHAR"/>
+        <result property="email" column="EMAIL" jdbcType="VARCHAR"/>
+        <result property="empId" column="EMP_ID" jdbcType="VARCHAR"/>
+        <result property="password" column="PASSWORD" jdbcType="VARCHAR"/>
+        <result property="createTime" column="CREATE_TIME" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          UID, USER_NAME, AGE, PHONE, ADDRESS, EMAIL, EMP_ID, PASSWORD,CREATE_TIME
+        from haha.user
+        where UID = #{uid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          UID, USER_NAME, AGE, PHONE, ADDRESS, EMAIL, EMP_ID, PASSWORD,CREATE_TIME
+        from haha.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+          UID, USER_NAME, AGE, PHONE, ADDRESS, EMAIL, EMP_ID, PASSWORD,CREATE_TIME
+        from haha.user
+        <where>
+            <if test="uid != null and uid != ''">
+                and UID = #{uid}
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME = #{userName}
+            </if>
+            <if test="age != null and age != ''">
+                and AGE = #{age}
+            </if>
+            <if test="phone != null and phone != ''">
+                and PHONE = #{phone}
+            </if>
+            <if test="address != null and address != ''">
+                and ADDRESS = #{address}
+            </if>
+            <if test="email != null and email != ''">
+                and EMAIL = #{email}
+            </if>
+            <if test="empId != null and empId != ''">
+                and EMP_ID = #{empId}
+            </if>
+            <if test="password != null and password != ''">
+                and PASSWORD = #{password}
+            </if>
+        </where>
+    </select>
+    <select id="getUserByEmpId" resultMap="UserMap">
+        select
+            UID, USER_NAME, AGE, PHONE, ADDRESS, EMAIL, EMP_ID, PASSWORD,CREATE_TIME
+        from haha.user
+        where EMP_ID=#{empId}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
+        insert into haha.user(UID,USER_NAME, AGE, PHONE, ADDRESS, EMAIL, EMP_ID, PASSWORD)
+        values (#{uid},#{userName}, #{age}, #{phone}, #{address}, #{email}, #{empId}, #{password})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update haha.user
+        <set>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="age != null and age != ''">
+                AGE = #{age},
+            </if>
+            <if test="phone != null and phone != ''">
+                PHONE = #{phone},
+            </if>
+            <if test="address != null and address != ''">
+                ADDRESS = #{address},
+            </if>
+            <if test="email != null and email != ''">
+                EMAIL = #{email},
+            </if>
+            <if test="empId != null and empId != ''">
+                EMP_ID = #{empId},
+            </if>
+            <if test="password != null and password != ''">
+                PASSWORD = #{password},
+            </if>
+        </set>
+        where UID = #{uid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from haha.user where UID = #{uid}
+    </delete>
+
+</mapper>

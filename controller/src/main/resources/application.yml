@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://49.233.182.119:3306/haha?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: zhangqiyang0
+    type: com.zaxxer.hikari.HikariDataSource
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+

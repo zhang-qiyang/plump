@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jsonschang.dao.dao.RoleDao">
+
+    <resultMap type="com.jsonschang.model.entity.Role" id="RoleMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="namezh" column="nameZh" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="RoleMap">
+        select
+          id, name, nameZh
+        from haha.role
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="RoleMap">
+        select
+          id, name, nameZh
+        from haha.role
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="RoleMap">
+        select
+          id, name, nameZh
+        from haha.role
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="namezh != null and namezh != ''">
+                and nameZh = #{namezh}
+            </if>
+        </where>
+    </select>
+    <select id="getUserRole" resultMap="RoleMap">
+        select r.name,r.id, r.nameZh from user u join user_role ur on u.EMP_ID=ur.USER_ID join role r on r.id=ur.ROLE_ID
+    </select>
+    <select id="getRoelByMenu" resultType="com.jsonschang.model.entity.Role">
+        SELECT r.* FROM menu m join menu_role mr on m.id = mr.mid join role r on mr.rid = r.id
+        where m.id=#{menuId}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into haha.role(name, nameZh)
+        values (#{name}, #{namezh})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update haha.role
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="namezh != null and namezh != ''">
+                nameZh = #{namezh},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from haha.role where id = #{id}
+    </delete>
+
+</mapper>
